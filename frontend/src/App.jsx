@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Registration from './pages/Registration'
+import AddExpense from './pages/AddExpense'
+import TransactionList from './components/TransactionList'
 
 const App = () => {
   return (
@@ -11,8 +13,10 @@ const App = () => {
       <Navbar/>
       <Routes>
         <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/' element={<Login/>}/>
         <Route path='/registration' element={<Registration/>}/>
+        <Route path='/addExpense' element={<AddExpense/>}/>
+        <Route path='/transactions' element={<TransactionList/>}/>
       </Routes>
     </div>
   )

@@ -1,17 +1,16 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../context/AuthProvider'
+import SummaryCard from '../components/SummaryCard'
+import TransactionList from '../components/TransactionList'
 
 const Dashboard = () => {
 
   const {user,token} = useContext(AuthContext)
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-
-      <h2>User : {user?.name}</h2>
-
-      <h3>Token : {token ? "Logged In" : "Not Logged In"}</h3>
+    <div className='h-[89%] w-full bg-zinc-100'>
+      <SummaryCard/>
+      <TransactionList/>
     </div>
   )
 }

@@ -11,15 +11,12 @@ const AuthProvider = ({children}) => {
         const res =await API.post("/auth/register",formData)
         localStorage.setItem("token",res.data.token)
 
-        setToken(res.data.token)
-        setUser(res.data.user)
         
         return res.data
     }
 
     const login = async(formData)=>{
         const res =await API.post("/auth/login",formData)
-
         localStorage.setItem("token",res.data.token)
 
         setToken(res.data.token)
