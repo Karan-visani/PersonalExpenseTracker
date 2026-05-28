@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Registration from './pages/Registration'
 import AddExpense from './pages/AddExpense'
 import TransactionList from './components/TransactionList'
+import EditExpense from './pages/EditExpense'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/' element={<Login/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/addExpense' element={<AddExpense/>}/>
+        <Route path='/editExpense/:id' element={<EditExpense/>}/>
         <Route path='/transactions' element={<TransactionList/>}/>
       </Routes>
     </div>

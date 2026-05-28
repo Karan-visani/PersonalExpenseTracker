@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import {Utensils} from 'lucide-react'
+import { Utensils,Trash2,Pencil} from 'lucide-react'
+import {Link} from 'react-router-dom'
 import API from '../api/axios'
 
-const TransactionList = () => {
-    const [expenses, setExpenses] = useState([])
-
-    const getExpenses = async()=>{
-        const res = await API.get("/expense")
-        setExpenses(res.data)        
-    }
-
-    useEffect(() => {
-      getExpenses()
-    }, [])
+const TransactionList = ({expenses,getExpenses}) => {
     
+    
+    const deleteExpense = async(id) =>{
+      await API.delete(`/expense/${id}`)
+      getExpenses()
+    }
 
   return (
     <div className='bg-white rounded-2xl shadow-lg p-6 mx-8 my-4 border border-zinc-200'>
 
   <div className='flex items-center justify-between mb-6'>
-    <h2 className='text-2xl font-bold text-zinc-800'>
+    <h2 className='text-3xl font-semibold text-emerald-900 border-l-4 border-emerald-800 ps-2'>
       Transactions
     </h2>
   </div>
   <div className='overflow-hidden rounded-xl border border-zinc-200'>
 
-    <div className='grid grid-cols-4 bg-zinc-100 px-6 py-4 text-zinc-600 font-semibold text-sm'>
+    <div className='grid grid-cols-5 bg-zinc-100 px-6 py-4 text-zinc-600 font-semibold text-sm'>
       <h2>Title</h2>
       <h2>Category</h2>
       <h2>Date</h2>
       <h2>Amount</h2>
+      <h2>Operations</h2>
     </div>
 
     {expenses.map((expenses,idx)=>{
-        return <div key={idx} className='grid grid-cols-4 items-center px-6 py-5 hover:bg-zinc-50 transition border-t border-zinc-200'>
+        return <div key={idx} className='grid grid-cols-5 items-center px-6 py-5 hover:bg-zinc-50 transition border-t border-zinc-200'>
 
       <div className='flex items-center gap-3'>
         <div>
@@ -55,9 +52,14 @@ const TransactionList = () => {
       </h2> : <h2 className='text-green-500 font-bold'>
         + ${expenses.amount}/-
       </h2>}
+    <h2 className='flex gap-3 items-center'>
+      <Link to={`/editExpense/${expenses._id}`} className='rounded-xl bg-amber-400 text-yellow-800 font-semibold p-2 '><Pencil/></Link>
+      <button onClick={()=>{
+        deleteExpense(expenses._id)
+      }} className='rounded-xl bg-red-600 text-white font-semibold p-2 '><Trash2 /></button>
+    </h2>
     </div>
     })}
-
 
     
   </div>

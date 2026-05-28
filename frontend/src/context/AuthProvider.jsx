@@ -5,11 +5,12 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({children}) => {
   const [token, setToken] = useState(localStorage.getItem("token") || "")
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null)
 
     const register = async (formData)=>{
         const res =await API.post("/auth/register",formData)
         localStorage.setItem("token",res.data.token)
+        localStorage.setItem("user",JSON.stringify(res.data.user))
 
         
         return res.data
@@ -18,6 +19,7 @@ const AuthProvider = ({children}) => {
     const login = async(formData)=>{
         const res =await API.post("/auth/login",formData)
         localStorage.setItem("token",res.data.token)
+        localStorage.setItem("user",JSON.stringify(res.data.user))
 
         setToken(res.data.token)
         setUser(res.data.user)
@@ -26,6 +28,7 @@ const AuthProvider = ({children}) => {
 
     const logout = ()=>{
         localStorage.removeItem("token")
+        localStorage.removeItem("user")
         setToken("")
         setUser(null)
     }

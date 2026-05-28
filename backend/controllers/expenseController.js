@@ -1,7 +1,7 @@
 const Expense = require("../models/expenseModel")
 
 const getExpense = async(req,res)=>{
-    const expense = await Expense.find({})
+    const expense = await Expense.find({userID:req.user.id})
     return res.send(expense)
 }
 

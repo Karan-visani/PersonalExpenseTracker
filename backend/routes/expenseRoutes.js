@@ -1,9 +1,10 @@
 const express = require("express")
-const { getExpense, postExpense, putExpense, deleteExpense } = require("../controllers/expenseCOntroller")
+const { getExpense, postExpense, putExpense, deleteExpense, getByIdExpense } = require("../controllers/expenseCOntroller")
 const authMiddleware = require("../middleware/authMiddleware")
 const expenseRouter = express.Router()
 
 expenseRouter.get("/expense",authMiddleware,getExpense)
+expenseRouter.get("/expense/:id",authMiddleware,getByIdExpense)
 expenseRouter.post("/expense",authMiddleware,postExpense)
 expenseRouter.put("/expense/:id",authMiddleware,putExpense)
 expenseRouter.delete("/expense/:id",authMiddleware,deleteExpense)
