@@ -7,6 +7,8 @@ import Registration from './pages/Registration'
 import AddExpense from './pages/AddExpense'
 import TransactionList from './components/TransactionList'
 import EditExpense from './pages/EditExpense'
+import Insights from './pages/Insights'
+import AiBot from './pages/AiBot'
 
 const App = () => {
   return (
@@ -18,7 +20,8 @@ const App = () => {
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/addExpense' element={<AddExpense/>}/>
         <Route path='/editExpense/:id' element={<EditExpense/>}/>
-        <Route path='/transactions' element={<TransactionList/>}/>
+        <Route path='/insights' element={<Insights/>}/>
+        <Route path='/ai' element={<AiBot/>}/>
       </Routes>
     </div>
   )

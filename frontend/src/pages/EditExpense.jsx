@@ -7,9 +7,9 @@ const EditExpense = () => {
     const navigate = useNavigate()
     const [title, setTitle] = useState("")
     const [amount, setAmount] = useState("")
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("Food")
     const [date, setDate] = useState("")
-    const [type, setType] = useState("")
+    const [type, setType] = useState("Expense")
 
     const getSingleExpense = async () =>{
         const res = await API.get(`/expense/${id}`)
@@ -67,18 +67,31 @@ const EditExpense = () => {
             </div>
             <div className='flex flex-col justify-center'>
               <p className='text-lg text-zinc-800'>Category</p>
-        <input value={category} onChange={(e)=>{
+        <select value={category} onChange={(e)=>{
             setCategory(e.target.value)
-        }} className='text-xl w-[80%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="category" id="category" placeholder='e.g Food'/>
+           }} className='text-zinc-700 text-xl w-[101%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' name="category" id="category">
+            <option value="Food"> 🍔Food</option>
+            <option value="Entertainment">🍿 Entertainment</option>
+            <option value="Groceries">🛒 Groceries</option>
+            <option value="HealthCare">🏥 HealthCare</option>
+            <option value="RentAndFees">🏠 Rent & Fees</option>
+            <option value="Shopping">🛍️ Shopping</option>
+            <option value="Transport">🚕 Transport</option>
+            <option value="Games">🏐 Games</option>
+            <option value="Vehicle">🏍️ Vehicle</option>
+            <option value="Others">🤷🏻‍♂️ Others</option>
+           </select>
           </div>
           </div>
 
         <div className='flex flex-col justify-center'>
             <p className='text-lg text-zinc-800'>Type :</p>
-        <input value={type} onChange={(e)=>{
+        <select value={type} onChange={(e)=>{
             setType(e.target.value)
-        }} className='text-xl border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="type" id="type" placeholder='Expense Or Income'/>
-        </div>
+        }} className='text-xl text-zinc-700 border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' name="type" id="type">
+            <option  value="Expense">🔻Expense</option>
+            <option  value="Income">🔺Income</option>
+        </select></div>
 
           <div className='flex flex-col justify-center mb-5'>
             <p className='text-lg text-zinc-800'>Transaction Date :</p>

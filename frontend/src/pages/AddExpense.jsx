@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import API from '../api/axios'
+import { CarTaxiFront, Clapperboard, Cross, Hamburger, Handbag, House, Motorbike, ShoppingCart, Volleyball } from 'lucide-react'
 
 const AddExpense = () => {
     const navigate = useNavigate()
     const [title, setTitle] = useState("")
     const [amount, setAmount] = useState("")
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("Food")
     const [date, setDate] = useState("")
-    const [type, setType] = useState("")
+    const [type, setType] = useState("Expense")
 
     const addHandler =async (e)=>{
         e.preventDefault()
@@ -23,6 +24,7 @@ const AddExpense = () => {
 
         const res = await API.post("/expense",formData)
         navigate("/dashboard")
+        
 
         setTitle("")
         setAmount("")
@@ -47,40 +49,43 @@ const AddExpense = () => {
             setTitle(e.target.value)
         }} className='text-xl border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="title" id="title" placeholder='e.g Weekly Groceries'/>
         </div>
-        <div className='flex justify-between'>
-            <div className='flex flex-col justify-center me-9'>
+        <div className='flex'>
+            <div className='flex flex-col justify-center '>
                 <p className='text-lg text-zinc-800'>Amount :</p>
         <input value={amount} onChange={(e)=>{
             setAmount(e.target.value)
-        }} className='text-xl w-[80%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="number" name="amount" id="amount" placeholder='$ 0.0'/>
+        }} className='text-xl w-[70%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="number" name="amount" id="amount" placeholder='$ 0.0'/>
 
             </div>
             <div className='flex flex-col justify-center'>
               <p className='text-lg text-zinc-800'>Category</p>
-        {/* <input value={category} onChange={(e)=>{
+        
+           <select value={category} onChange={(e)=>{
             setCategory(e.target.value)
-        }} className='text-xl w-[80%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="category" id="category" placeholder='e.g Food'/>
-           */}
-           <select className='text-xl w-[80%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' name="category" id="category">
-            <option value="Food">Food</option>
-            <option value="Food">Entertainment</option>
-            <option value="Food">Groceries</option>
-            <option value="Food">HealthCare</option>
-            <option value="Food">Rent & Fees</option>
-            <option value="Food">Shopping</option>
-            <option value="Food">Transport</option>
-            <option value="Food">Games</option>
-            <option value="Food">Vehicle</option>
-            <option value="Food">Others</option>
+           }} className='text-zinc-700 text-xl w-[101%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' name="category" id="category">
+            <option value="Food"> 🍔Food</option>
+            <option value="Entertainment">🍿 Entertainment</option>
+            <option value="Groceries">🛒 Groceries</option>
+            <option value="HealthCare">🏥 HealthCare</option>
+            <option value="RentAndFees">🏠 Rent & Fees</option>
+            <option value="Shopping">🛍️ Shopping</option>
+            <option value="Transport">🚕 Transport</option>
+            <option value="Games">🏐 Games</option>
+            <option value="Vehicle">🏍️ Vehicle</option>
+            <option value="Others">🤷🏻‍♂️ Others</option>
            </select>
           </div>
-          </div>
+            </div>
 
         <div className='flex flex-col justify-center'>
             <p className='text-lg text-zinc-800'>Type :</p>
-        <input value={type} onChange={(e)=>{
+        <select value={type} onChange={(e)=>{
             setType(e.target.value)
-        }} className='text-xl border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="type" id="type" placeholder='Expense Or Income'/>
+        }} className='text-xl text-zinc-700 border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' name="type" id="type">
+            <option value="Expense">🔻Expense</option>
+            <option value="Income">🔺Income</option>
+        </select>
+        
         </div>
 
           <div className='flex flex-col justify-center mb-5'>

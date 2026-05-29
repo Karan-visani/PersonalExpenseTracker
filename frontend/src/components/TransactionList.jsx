@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Utensils,Trash2,Pencil} from 'lucide-react'
-import {Link} from 'react-router-dom'
+import { Utensils,Trash2,Pencil, Plus} from 'lucide-react'
+import {Link, useNavigate} from 'react-router-dom'
 import API from '../api/axios'
 
 const TransactionList = ({expenses,getExpenses}) => {
-    
+  const navigate = useNavigate()
     
     const deleteExpense = async(id) =>{
       await API.delete(`/expense/${id}`)
@@ -18,6 +18,7 @@ const TransactionList = ({expenses,getExpenses}) => {
     <h2 className='text-3xl font-semibold text-emerald-900 border-l-4 border-emerald-800 ps-2'>
       Transactions
     </h2>
+    <button onClick={()=>{navigate("/addExpense")}} className='bg-emerald-700 rounded-xl p-1 hover:bg-emerald-600 me-2'><Plus size={30} color='white'/></button>
   </div>
   <div className='overflow-hidden rounded-xl border border-zinc-200'>
 
@@ -29,33 +30,33 @@ const TransactionList = ({expenses,getExpenses}) => {
       <h2>Operations</h2>
     </div>
 
-    {expenses.map((expenses,idx)=>{
+    {expenses.map((expense,idx)=>{
         return <div key={idx} className='grid grid-cols-5 items-center px-6 py-5 hover:bg-zinc-50 transition border-t border-zinc-200'>
 
       <div className='flex items-center gap-3'>
         <div>
           <h3 className='font-semibold text-zinc-800'>
-            {expenses.title}
+            {expense.title}
           </h3>
         </div>
       </div>
       <div>
         <span className='bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium'>
-          {expenses.category}
+          {expense.category}
         </span>
       </div>
       <h2 className='text-zinc-600'>
-        {expenses.date.slice(0,10)}
+        {expense.date.slice(0,10)}
       </h2>
-      {expenses.type == "Expense" ?<h2 className='text-red-500 font-bold'>
-        - ${expenses.amount}/-
+      {expense.type == "Expense" ?<h2 className='text-red-500 font-bold'>
+        - ${expense.amount}/-
       </h2> : <h2 className='text-green-500 font-bold'>
-        + ${expenses.amount}/-
+        + ${expense.amount}/-
       </h2>}
     <h2 className='flex gap-3 items-center'>
-      <Link to={`/editExpense/${expenses._id}`} className='rounded-xl bg-amber-400 text-yellow-800 font-semibold p-2 '><Pencil/></Link>
+      <Link to={`/editExpense/${expense._id}`} className='rounded-xl bg-amber-400 text-yellow-800 font-semibold p-2 '><Pencil/></Link>
       <button onClick={()=>{
-        deleteExpense(expenses._id)
+        deleteExpense(expense._id)
       }} className='rounded-xl bg-red-600 text-white font-semibold p-2 '><Trash2 /></button>
     </h2>
     </div>

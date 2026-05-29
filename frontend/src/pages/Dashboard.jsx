@@ -14,8 +14,11 @@ const Dashboard = () => {
         setExpenses(res.data)        
     }
 
-    useEffect(() => {
-      getExpenses()
+    
+    
+   
+   useEffect(() => {
+    getExpenses()
     }, [])
 
   return (
@@ -23,6 +26,7 @@ const Dashboard = () => {
       <h2 className='absolute left-2.5 top-23 text-xl text-emerald-800'>Welcome ,<span className='text-xl font-bold text-emerald-800'>{user?.name}</span></h2>
       <SummaryCard expenses={expenses} />
       <TransactionList expenses={expenses} getExpenses={getExpenses}/>
+      
     </div>
   )
 }
