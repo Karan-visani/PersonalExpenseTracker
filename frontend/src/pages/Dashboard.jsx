@@ -22,8 +22,8 @@ const Dashboard = () => {
     }, [])
 
   return (
-    <div className='h-[89%] w-full bg-zinc-100'>
-      <h2 className='absolute left-2.5 top-23 text-xl text-emerald-800'>Welcome ,<span className='text-xl font-bold text-emerald-800'>{user?.name}</span></h2>
+    <div className='min-h-screen w-full bg-zinc-100 pb-10'>
+      <h2 className='px-4 pt-4 text-base sm:text-xl text-emerald-800'>Welcome ,<span className='text-xl font-bold text-emerald-800'>{user?.name}</span></h2>
       <SummaryCard expenses={expenses} />
       <TransactionList expenses={expenses} getExpenses={getExpenses}/>
       

@@ -18,17 +18,17 @@ const TransactionList = ({expenses,getExpenses}) => {
     }
 
   return (
-    <div className='bg-white rounded-2xl shadow-lg p-6 mx-8 my-4 border border-zinc-200'>
+    <div className='bg-white rounded-2xl shadow-lg p-4 sm:p-6 mx-2 sm:mx-8 my-4 border border-zinc-200 overflow-x-auto'>
 
-  <div className='flex items-center justify-between mb-6'>
+  <div className='flex flex-wrap gap-3 items-center justify-between mb-6'>
     <h2 className='text-3xl font-semibold text-emerald-900 border-l-4 border-emerald-800 ps-2'>
       Transactions
     </h2>
     <button onClick={()=>{navigate("/addExpense")}} className='bg-emerald-700 rounded-xl p-1 hover:bg-emerald-600 me-2'><Plus size={30} color='white'/></button>
   </div>
-  <div className='overflow-hidden rounded-xl border border-zinc-200'>
+  <div className='overflow-x-auto rounded-xl border border-zinc-200'>
 
-    <div className='grid grid-cols-5 bg-zinc-100 px-6 py-4 text-zinc-600 font-semibold text-sm'>
+    <div className='grid grid-cols-5 min-w-[700px] bg-zinc-100 px-6 py-4 text-zinc-600 font-semibold text-sm'>
       <h2>Title</h2>
       <h2>Category</h2>
       <h2>Date</h2>
@@ -37,7 +37,7 @@ const TransactionList = ({expenses,getExpenses}) => {
     </div>
 
     {expenses.map((expense,idx)=>{
-        return <div key={idx} className='grid grid-cols-5 items-center px-6 py-5 hover:bg-zinc-50 transition border-t border-zinc-200'>
+        return <div key={idx} className='grid grid-cols-5 min-w-[700px] items-center px-6 py-5 hover:bg-zinc-50 transition border-t border-zinc-200'>
 
       <div className='flex items-center gap-3'>
         <div>
