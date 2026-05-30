@@ -32,13 +32,13 @@ const AiBot = () => {
     Ask AI
   </button>
 
-  {
-    aiResponse && (
-      <div className="mt-6 bg-gray-100 p-4 rounded-lg">
+  
+
+  {aiResponse?(
+      <div className="mt-8 bg-zinc-100 border border-zinc-300 rounded-2xl whitespace-pre-wrap  p-6 text-lg">
         <p>{aiResponse}</p>
       </div>
-    )
-  }
+    ):''}
 
 </div>
   )

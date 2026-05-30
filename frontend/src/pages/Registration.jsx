@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import {toast} from 'react-hot-toast'
 
 const Registration = () => {
     const navigate = useNavigate()
@@ -13,14 +14,19 @@ const Registration = () => {
     const registrationHandler =async (e) =>{
         e.preventDefault()
     
-        const formData = {
+        try{
+            const formData = {
             name,
             email,
             password
         }
 
         await register(formData)
+        toast.success("Registeration Complete")
         navigate("/")
+        }catch(error){
+            toast.error(error.response.data.message)
+        }
     }
   return (
     <div className='h-[89%] w-full flex justify-center items-center bg-zinc-100'>

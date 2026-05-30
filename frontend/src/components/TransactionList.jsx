@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Utensils,Trash2,Pencil, Plus} from 'lucide-react'
 import {Link, useNavigate} from 'react-router-dom'
 import API from '../api/axios'
+import {toast} from 'react-hot-toast'
 
 const TransactionList = ({expenses,getExpenses}) => {
   const navigate = useNavigate()
     
     const deleteExpense = async(id) =>{
-      await API.delete(`/expense/${id}`)
+      try{
+        await API.delete(`/expense/${id}`)
+      toast.success("Deleted Successfully!")
       getExpenses()
+      }catch(error){
+        toast.error(error.response.data.message)
+      }
     }
 
   return (

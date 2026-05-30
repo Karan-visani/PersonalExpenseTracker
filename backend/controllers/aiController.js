@@ -1,87 +1,90 @@
-const axios = require("axios")
 const { model } = require("mongoose")
 const Expense = require("../models/expenseModel")
+const axios = require("axios")
+
 
 const getAIResponse = async (req,res)=>{
-const {prompt} = req.body 
+    const {prompt} = req.body
 
-if(!prompt){
-    return res.status(400).json({
-        message:"Prompt is required"
-    })
-}
-
-const expenses = await Expense.find({userID:req.user.id})
-
-let totalExpense = 0
-let totalIncome = 0
-
-const expenseCategoryTotal = {}
-const incomeCategoryTotal = {}
-
-expenses.forEach((item)=>{
-
-    if(item.type === "Expense"){
-        totalExpense += Number(item.amount)
-        if(expenseCategoryTotal[item.category]){
-            expenseCategoryTotal[item.category] += Number(item.amount)
-        }else{
-            expenseCategoryTotal[item.category] = Number(item.amount)
-        }
+    if(!prompt){
+        return res.status(400).json({
+            message:"Prompt is Required"
+        })
     }
 
-    if(item.type === "Income"){
-        totalIncome += Number(item.amount)
-        if(incomeCategoryTotal[item.category]){
-            incomeCategoryTotal[item.category] += Number(item.amount)
-        }else{
-            incomeCategoryTotal[item.category] = Number(item.amount)
-        }
-    }
-})
+    const expenses = await Expense.find({userID:req.user.id})
 
-let topExpenseCategory = ""
-let maxExpenseAmount = 0
+    const expenseCategoryTotal = {}
+    const incomeCategoryTotal = {}
+    let totalExpense = 0
+    let totalIncome = 0
 
-for(const category in expenseCategoryTotal){
-    if(expenseCategoryTotal[category]>maxExpenseAmount){
-        topExpenseCategory = category
-        maxExpenseAmount = expenseCategoryTotal[category]
-    }
-}
+    expenses.forEach((item)=>{
+        if(item.type == "Expense"){
+            totalExpense += Number(item.amount)
 
-let topIncomeCategory = ""
-let maxIncomeAmount = 0
-
-for(const category in incomeCategoryTotal){
-    if(incomeCategoryTotal[category]>maxIncomeAmount){
-        topIncomeCategory = category
-        maxIncomeAmount = incomeCategoryTotal[category]
-    }
-}
-
-const aiPrompt = `You are a smart financial assistant. Here is the users financial data:Total Expense : ${totalExpense} , Total Income :${totalIncome} ,Expense category Totals:${JSON.stringify(expenseCategoryTotal)},Income category Totals:${JSON.stringify(incomeCategoryTotal)} ,Category most money spent on :${topExpenseCategory},Highest Expense amount on the top category :${maxExpenseAmount},,Category most money Got From (Highest Income Source) on :${topIncomeCategory},Highest Income amount on the top category :${maxIncomeAmount},Transactions :${JSON.stringify(expenses)},Answer the following user quetsion based ONLY on this financial data of the user dont write "Based on the given data and all.instead you can say according to your transactions (everytime different like this).User Question :${prompt}`
-
-const response = await axios.post(
-    "https://openrouter.ai/api/v1/chat/completions",
-    {
-        model:"openai/gpt-3.5-turbo",
-        messages:[
-            {
-                role:"user",
-                content:aiPrompt
+                if(expenseCategoryTotal[item.category]){
+                    expenseCategoryTotal[item.category] += Number(item.amount)
+                }else{
+                    expenseCategoryTotal[item.category] = Number(item.amount)
             }
-        ]
-    },
-    {
-        headers:{
-            Authorization:`Bearer ${process.env.OPENROUTER_API_KEY}`,
-            "Content-Type":"application/json"
+        }
+
+        if(item.type == "Income"){
+            totalIncome += Number(item.amount)
+
+                if(incomeCategoryTotal[item.category]){
+                    incomeCategoryTotal[item.category] += Number(item.amount)
+                }else{
+                    incomeCategoryTotal[item.category] = Number(item.amount)
+                }
+        }
+    })
+
+    let topExpenseCategory = ""
+    let topIncomeCategory = ""
+    let maxExpenseAmount = 0
+    let maxIncomeAmount = 0
+
+    for(const category in expenseCategoryTotal){
+        if(expenseCategoryTotal[category]>maxExpenseAmount){
+            topExpenseCategory=category
+            maxExpenseAmount=expenseCategoryTotal[category]
         }
     }
-)
 
-res.json({response:response.data.choices[0].message.content})
+    
+    for(const category in incomeCategoryTotal){
+        if(incomeCategoryTotal[category]>maxIncomeAmount){
+            topIncomeCategory=category
+            maxIncomeAmount=incomeCategoryTotal[category]
+        }
+    }
+
+    const aiPrompt = `You are a smart financial assistant .Here is the users financial data : Expense Categories in which they have spended ${expenseCategoryTotal},Income Categories in which they have recieved money ${incomeCategoryTotal},Total Expense of theirs ${totalExpense},Total Income of theirs ${totalIncome},Highest expense Category :${topExpenseCategory},Highest Income Category :${topIncomeCategory},Highest expense ${maxExpenseAmount},Highest Income ${maxIncomeAmount},Their All expenses ${expenses} ,these are the users transaction data and u have to give response ONLY considering these provided data and the user should not feel like it is AI generated response as it is a website(Personal Expense Tracker)'s ChatBot . The user Question is :${prompt}`
+
+    const response = await axios.post(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
+            model:"openai/gpt-3.5-turbo",
+            messages:[
+                {
+                    role:"user",
+                    content:aiPrompt
+                }
+            ]
+        },
+        {
+            headers:
+            {
+                Authorization:`Bearer ${process.env.OPENROUTER_API_KEY}`,
+                "Content-Type":"application/json"
+            }
+        
+        }
+    )
+
+    return res.json({response:response.data.choices[0].message.content})
 }
 
 module.exports = getAIResponse

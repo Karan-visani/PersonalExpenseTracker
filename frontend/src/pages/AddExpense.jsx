@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import API from '../api/axios'
 import { CarTaxiFront, Clapperboard, Cross, Hamburger, Handbag, House, Motorbike, ShoppingCart, Volleyball } from 'lucide-react'
+import {toast} from 'react-hot-toast'
 
 const AddExpense = () => {
     const navigate = useNavigate()
@@ -14,7 +15,8 @@ const AddExpense = () => {
     const addHandler =async (e)=>{
         e.preventDefault()
 
-        const formData = {
+        try{
+            const formData = {
             title,
             amount,
             category,
@@ -23,7 +25,12 @@ const AddExpense = () => {
         }
 
         const res = await API.post("/expense",formData)
+
+        toast.success("Transaction Added Successfully")
         navigate("/dashboard")
+        }catch(error){
+        toast.error(error.response.data.message)
+        }
         
 
         setTitle("")

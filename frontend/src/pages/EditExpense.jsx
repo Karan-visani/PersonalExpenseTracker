@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import {toast} from 'react-hot-toast'
 import API from '../api/axios'
 
 const EditExpense = () => {
@@ -29,7 +30,8 @@ const EditExpense = () => {
     const EditHandler =async (e)=>{
         e.preventDefault()
 
-        const updatedExpense = {
+        try{
+            const updatedExpense = {
             title,
             amount,
             category,
@@ -38,7 +40,12 @@ const EditExpense = () => {
         }
 
         const res = await API.put(`/expense/${id}`,updatedExpense)
+
+        toast.success("Transaction Edited Successfully")
         navigate("/dashboard")
+        }catch(error){
+            toast.error(error.response.data.message)
+        }
 
     }
 
@@ -102,7 +109,7 @@ const EditExpense = () => {
 
         <div className='flex justify-between items-center'>
             <button className='text-xl bg-emerald-900 text-white px-5 py-2 rounded-2xl w-[57%]'>Edit </button>
-            <button onClick={cancel} className='text-xl bg-zinc-500 text-white px-5 py-2 rounded-2xl w-[35%]'>Cancel</button>
+            <button type='button' onClick={cancel} className='text-xl bg-zinc-500 text-white px-5 py-2 rounded-2xl w-[35%]'>Cancel</button>
         </div>
       </form>
         </div>

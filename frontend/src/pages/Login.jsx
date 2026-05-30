@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthProvider'
+import {toast} from 'react-hot-toast'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -11,13 +12,18 @@ const Login = () => {
     const loginHandler =async (e) =>{
         e.preventDefault()
 
-        const formData = {
+        try{
+          const formData = {
           email,
           password
         }
 
         await login(formData)
+        toast.success("Logged-In Successfully")
         navigate("/dashboard")
+        }catch(error){
+          toast.error(error.response.data.message)
+        }
     }
   return (
     <div className='h-[89%] w-full flex justify-center items-center bg-zinc-100'>
