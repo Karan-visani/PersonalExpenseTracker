@@ -1,5 +1,5 @@
 const express = require("express")
-const { getExpense, postExpense, putExpense, deleteExpense, getByIdExpense } = require("../controllers/expenseCOntroller")
+const { getExpense, postExpense, putExpense, deleteExpense, getByIdExpense } = require("../controllers/expenseController")
 const authMiddleware = require("../middleware/authMiddleware")
 const expenseRouter = express.Router()
 
