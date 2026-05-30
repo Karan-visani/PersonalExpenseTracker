@@ -11,7 +11,7 @@ const Insights = () => {
     const res = await API.get("/analytics")
     setAnalytics(res.data)
   }
- const budget = 1000
+ const budget = 3000
   const totalExpense = analytics?.totalExpense
   const categoryTotals = analytics?.categoryTotals || {}
   
