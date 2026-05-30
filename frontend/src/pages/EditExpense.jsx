@@ -54,8 +54,8 @@ const EditExpense = () => {
     }
 
   return (
-      <div className='h-[89%] w-full flex justify-center items-center bg-zinc-100'>
-        <div className='rounded-2xl bg-white shadow-md shadow-zinc-600  h-[84%]  sm:w-[70%] md:w-[50%] lg:w-[33%] p-10'>
+      <div className='min-h-screen w-full flex justify-center items-center bg-zinc-100 px-4 py-8'>
+<div className='rounded-2xl bg-white shadow-md shadow-zinc-400 w-full max-w-2xl p-5 sm:p-10'>
         <h2 className='text-2xl font-medium flex items-center'>✏️ Edit Transaction</h2>
         <form onSubmit={EditHandler} className='flex flex-col gap-6 mt-11 '>
         <div className='flex flex-col justify-center'>
@@ -64,12 +64,12 @@ const EditExpense = () => {
             setTitle(e.target.value)
         }} className='text-xl border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="text" name="title" id="title" placeholder='e.g Weekly Groceries'/>
         </div>
-        <div className='flex justify-between'>
+        <div className='flex flex-col sm:flex-row gap-4'>
             <div className='flex flex-col justify-center me-9'>
                 <p className='text-lg text-zinc-800'>Amount :</p>
         <input value={amount} onChange={(e)=>{
             setAmount(e.target.value)
-        }} className='text-xl w-[80%] border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="number" name="amount" id="amount" placeholder='$ 0.0'/>
+        }} className='text-xl w-full border-2 rounded-lg border-zinc-500 px-3 py-1 mt-1' type="number" name="amount" id="amount" placeholder='$ 0.0'/>
 
             </div>
             <div className='flex flex-col justify-center'>

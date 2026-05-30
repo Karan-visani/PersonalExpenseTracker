@@ -29,20 +29,20 @@ const Registration = () => {
         }
     }
   return (
-    <div className='h-[89%] w-full flex justify-center items-center bg-zinc-100'>
+    <div className='min-h-screen w-full flex justify-center items-center bg-zinc-100 px-4 py-10'>
         <div className='rounded-2xl border-6 border-emerald-900  lg:h-[66%]  sm:w-[70%] md:w-[50%] lg:w-[33%] p-10'>
-        <h2 className='text-3xl font-semibold flex justify-center'>Registration Page!</h2>
+        <h2 className='text-2xl sm:text-3xl font-semibold text-center'>Registration Page!</h2>
         <form onSubmit={registrationHandler} className='flex flex-col gap-9 mt-11 '>
         <input value={name} onChange={(e)=>{
             setName(e.target.value)
-        }} className='text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='name' id='name'placeholder='Enter Your Name'/>
+        }} className='text-base sm:text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='name' id='name'placeholder='Enter Your Name'/>
         
         <input value={email} onChange={(e)=>{
             setEmail(e.target.value)
-        }} className='text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='email' id='email'placeholder='Enter Your Email'/>
+        }} className='text-base sm:text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='email' id='email'placeholder='Enter Your Email'/>
         <input value={password} onChange={(e)=>{
             setPassword(e.target.value)
-        }} className='text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="password" name="password" id="password" placeholder='Enter Your Password' />
+        }} className='text-base sm:text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="password" name="password" id="password" placeholder='Enter Your Password' />
         <button className='text-xl font-semibold bg-emerald-900 hover:bg-emerald-950 p-3 rounded-3xl text-white'>Register</button>
       </form>
         </div>

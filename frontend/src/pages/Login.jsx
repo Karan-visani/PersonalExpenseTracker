@@ -26,16 +26,16 @@ const Login = () => {
         }
     }
   return (
-    <div className='h-[89%] w-full flex justify-center items-center bg-zinc-100'>
-        <div className='rounded-2xl border-6 border-emerald-900  lg:h-[60%]  sm:w-[70%] md:w-[50%] lg:w-[33%] p-10'>
-        <h2 className='text-3xl font-semibold flex justify-center'>Login Page!</h2>
+    <div className='min-h-screen w-full flex justify-center items-center bg-zinc-100 px-4 py-10'>
+        <div className='rounded-2xl border-4 border-emerald-900 w-full max-w-md p-6 sm:p-10 bg-zinc-100'>
+        <h2 className='text-2xl sm:text-3xl font-semibold text-center'>Login Page!</h2>
         <form onSubmit={loginHandler} className='flex flex-col gap-9 mt-11 '>
         <input value={email} onChange={(e)=>{
             setEmail(e.target.value)
-        }} className='text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='email' id='email'placeholder='Enter Your Email'/>
+        }} className='text-base sm:text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="text" name='email' id='email'placeholder='Enter Your Email'/>
         <input value={password} onChange={(e)=>{
             setPassword(e.target.value)
-        }} className='text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="password" name="password" id="password" placeholder='Enter Your Password' />
+        }} className='text-base sm:text-xl font-semibold border-3 py-2 px-4 rounded-2xl outline-none  autofill:bg-amber-50 border-emerald-900'  type="password" name="password" id="password" placeholder='Enter Your Password' />
         <Link to={'/registration'} className='text-lg font-semibold underline'>New user? Register</Link>
         <button className='text-xl font-semibold bg-emerald-900 hover:bg-emerald-950 p-3 rounded-3xl text-white'>Login</button>
       </form>
