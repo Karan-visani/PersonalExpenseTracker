@@ -36,5 +36,3 @@ A full-stack Personal Expense Tracker application that helps users manage their 
 ### Authentication
 - JWT (JSON Web Token)
 - Bcrypt.js
-
-## Project Structure
